@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bi-assistant:latest
+    container_name: bi-assistant
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      # data/ mounted read-only — database and documents are not modified at runtime
+      - ./data:/app/data:ro
+      # Vector store persisted across container restarts
+      - chroma_data:/app/.chroma
+
+    environment:
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-openai/gpt-4o-mini}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      DATABASE_PATH: /app/data/staffing.db
+      PERMISSIONS_PATH: /app/data/user_permissions.json
+      DOCUMENTS_PATH: /app/data/documents
+      CHROMA_PERSIST_PATH: /app/.chroma
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+
+volumes:
+  chroma_data:

@@ -1,0 +1,49 @@
+{
+  "users": {
+    "alice.johnson": {
+      "display_name": "Alice Johnson",
+      "role": "Regional Analyst",
+      "regions": ["Southeast"],
+      "divisions": ["IT", "Engineering", "Finance", "Healthcare", "Administrative"],
+      "description": "Southeast regional analyst — full division access, single region."
+    },
+    "bob.martinez": {
+      "display_name": "Bob Martinez",
+      "role": "Division Lead",
+      "regions": ["West Coast", "Southwest"],
+      "divisions": ["IT", "Engineering"],
+      "description": "Tech divisions lead for western regions — limited divisions, multiple regions."
+    },
+    "carol.chen": {
+      "display_name": "Carol Chen",
+      "role": "National Director",
+      "regions": ["Southeast", "West Coast", "Northeast", "Midwest", "Southwest"],
+      "divisions": ["IT", "Engineering", "Finance", "Healthcare", "Administrative"],
+      "description": "Full access across all regions and divisions — use to verify unfiltered results."
+    },
+    "david.okafor": {
+      "display_name": "David Okafor",
+      "role": "Healthcare Specialist",
+      "regions": ["Northeast", "Midwest"],
+      "divisions": ["Healthcare"],
+      "description": "Single division, two regions — good for testing narrow scope."
+    },
+    "elena.silva": {
+      "display_name": "Elena Silva",
+      "role": "Finance Analyst",
+      "regions": ["Southeast", "Northeast"],
+      "divisions": ["Finance", "Administrative"],
+      "description": "Two divisions, two regions — mid-level access scope."
+    }
+  },
+  "_metadata": {
+    "description": "User permission profiles for Row-Level Security testing. Each user has access only to the regions and divisions listed in their profile. The agent must filter ALL structured data queries to respect these permissions. Document access (RAG) is unrestricted — all users can query all policy documents.",
+    "security_rules": [
+      "Filter MUST be applied at the SQL/query level, before data reaches the LLM.",
+      "Never expose raw data outside a user's permitted regions and divisions.",
+      "Aggregations (counts, averages) must also respect RLS — do not aggregate across unauthorized regions.",
+      "If a user asks about a region they don't have access to, respond with an access denial message.",
+      "User 'carol.chen' has full access and can be used to verify unfiltered result counts."
+    ]
+  }
+}
