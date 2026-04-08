@@ -1,0 +1,63 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.2, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /home/claude/citation-guardrail
+configfile: pyproject.toml
+plugins: anyio-4.13.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 52 items
+
+tests/test_integration.py::TestHealth::test_returns_ok PASSED            [  1%]
+tests/test_integration.py::TestHealth::test_counters_are_dict PASSED     [  3%]
+tests/test_integration.py::TestGuardrailChitchat::test_chitchat_returns_skipped PASSED [  5%]
+tests/test_integration.py::TestGuardrailChitchat::test_chitchat_metrics_zero_llm_calls PASSED [  7%]
+tests/test_integration.py::TestGuardrailUngrounded::test_ungrounded_returns_skipped PASSED [  9%]
+tests/test_integration.py::TestGuardrailAlreadyPresent::test_markdown_url_already_present PASSED [ 11%]
+tests/test_integration.py::TestGuardrailInject::test_citation_injected_in_answer PASSED [ 13%]
+tests/test_integration.py::TestGuardrailInject::test_inject_records_latency PASSED [ 15%]
+tests/test_integration.py::TestGuardrailNoMatch::test_below_threshold_skipped PASSED [ 17%]
+tests/test_integration.py::TestGuardrailNoMatch::test_empty_candidates_skipped_no_match PASSED [ 19%]
+tests/test_integration.py::TestHealthCounters::test_counters_increment_on_request PASSED [ 21%]
+tests/test_integration.py::TestResponseContract::test_response_has_required_fields PASSED [ 23%]
+tests/test_keyword_matcher.py::TestTokenize::test_lowercases PASSED      [ 25%]
+tests/test_keyword_matcher.py::TestTokenize::test_splits_on_space PASSED [ 26%]
+tests/test_keyword_matcher.py::TestTokenize::test_empty_string PASSED    [ 28%]
+tests/test_keyword_matcher.py::TestKeywordMatch::test_returns_best_match PASSED [ 30%]
+tests/test_keyword_matcher.py::TestKeywordMatch::test_no_overlap_returns_none_when_threshold_positive PASSED [ 32%]
+tests/test_keyword_matcher.py::TestKeywordMatch::test_zero_threshold_always_returns_something PASSED [ 34%]
+tests/test_keyword_matcher.py::TestKeywordMatch::test_empty_candidates_returns_none PASSED [ 36%]
+tests/test_keyword_matcher.py::TestKeywordMatch::test_score_is_normalised PASSED [ 38%]
+tests/test_keyword_matcher.py::TestKeywordDisambiguation::test_picks_higher_overlap_candidate PASSED [ 40%]
+tests/test_keyword_matcher.py::TestKeywordDisambiguation::test_threshold_filters_weak_match PASSED [ 42%]
+tests/test_keyword_matcher.py::TestKeywordDisambiguation::test_description_words_count PASSED [ 44%]
+tests/test_rules.py::TestUrlAlreadyPresent::test_markdown_link PASSED    [ 46%]
+tests/test_rules.py::TestUrlAlreadyPresent::test_plain_url PASSED        [ 48%]
+tests/test_rules.py::TestUrlAlreadyPresent::test_not_present PASSED      [ 50%]
+tests/test_rules.py::TestUrlAlreadyPresent::test_partial_url_does_not_match PASSED [ 51%]
+tests/test_rules.py::TestR1Chitchat::test_chitchat_skipped PASSED        [ 53%]
+tests/test_rules.py::TestR1Chitchat::test_chitchat_overrides_kb_grounded PASSED [ 55%]
+tests/test_rules.py::TestR2Ungrounded::test_ungrounded_skipped PASSED    [ 57%]
+tests/test_rules.py::TestR2Ungrounded::test_grounded_passes_through PASSED [ 59%]
+tests/test_rules.py::TestEmptyCandidates::test_empty_list_returns_no_match PASSED [ 61%]
+tests/test_rules.py::TestEmptyCandidates::test_empty_list_does_not_call_matcher PASSED [ 63%]
+tests/test_rules.py::TestR3AlreadyPresent::test_markdown_link_already_present PASSED [ 65%]
+tests/test_rules.py::TestR3AlreadyPresent::test_plain_url_already_present PASSED [ 67%]
+tests/test_rules.py::TestR4Inject::test_citation_injected PASSED         [ 69%]
+tests/test_rules.py::TestR4Inject::test_citation_appended_at_end PASSED  [ 71%]
+tests/test_rules.py::TestR4Inject::test_citation_appears_exactly_once PASSED [ 73%]
+tests/test_rules.py::TestR4Inject::test_llm_answer_semantics_unchanged PASSED [ 75%]
+tests/test_rules.py::TestR5NoMatch::test_no_match_skipped PASSED         [ 76%]
+tests/test_rules.py::TestR5NoMatch::test_no_match_records_best_score PASSED [ 78%]
+tests/test_rules.py::TestFallbackReason::test_fallback_reason_in_injected PASSED [ 80%]
+tests/test_rules.py::TestFallbackReason::test_no_fallback_reason_clean PASSED [ 82%]
+tests/test_semantic_matcher.py::TestSemanticMatchHappyPath::test_returns_best_match PASSED [ 84%]
+tests/test_semantic_matcher.py::TestSemanticMatchHappyPath::test_score_reflects_cosine PASSED [ 86%]
+tests/test_semantic_matcher.py::TestSemanticMatchBelowThreshold::test_below_threshold_returns_none PASSED [ 88%]
+tests/test_semantic_matcher.py::TestSemanticMatchEmptyCandidates::test_empty_list_no_api_call PASSED [ 90%]
+tests/test_semantic_matcher.py::TestSemanticMatchFallback::test_timeout_falls_back_to_keyword PASSED [ 92%]
+tests/test_semantic_matcher.py::TestSemanticMatchFallback::test_connection_error_falls_back PASSED [ 94%]
+tests/test_semantic_matcher.py::TestSemanticMatchFallback::test_fallback_does_not_raise PASSED [ 96%]
+tests/test_semantic_matcher.py::TestSemanticMatchOpenAI::test_openai_provider_called PASSED [ 98%]
+tests/test_semantic_matcher.py::TestSemanticDisambiguation::test_semantic_disambiguates_ambiguous_keyword PASSED [100%]
+
+============================== 52 passed in 1.79s ==============================
